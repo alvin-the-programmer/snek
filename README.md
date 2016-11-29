@@ -2,6 +2,7 @@
 A terminal based music player written in Python.
 
 ## Installing Dependencies
+The easiest way to install snek's dependencies is through [pip](https://pypi.python.org/pypi/pip).
 1. install [urwid](http://urwid.org/) console interface library
 ```
 pip install urwid
