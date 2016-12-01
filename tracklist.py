@@ -2,22 +2,35 @@ import urwid
 import player
 import resource
 
+
 track_data = None
-frame = None
+track_window = None
+
+
+def get_track_window(sound_names):
+    frame = urwid.Frame(None, header=get_column_header())
+    set_track_window(frame)
+
+    set_track_data(sound_names)
+    update(None, 'album')
+
+    widget = urwid.LineBox(frame)
+    return widget
+
 
 def set_track_data(sound_names):
     global track_data
     track_data = resource.get_tracks_info(sound_names)
 
 
-def set_frame(widget):
-    global frame
-    frame = widget
+def set_track_window(widget):
+    global track_window
+    track_window = widget
 
 
 def update(w, sort_key):
     body = (get_track_list(sort_key), None)
-    frame.contents['body'] = body
+    track_window.contents['body'] = body
 
 
 def get_track_list(sort_key):
@@ -57,7 +70,7 @@ def get_column_header():
     )
     artist = urwid.Button(
         ('b', u"Artist"),
-        on_press=update, user_data='artist'
+        on_press=update, user_data='author'
     )
     album = urwid.Button(
         ('b', u"Album"),
@@ -68,12 +81,14 @@ def get_column_header():
         on_press=update, user_data='duration'
     )
 
-    widget = urwid.Columns([
+    header = urwid.Columns([
         ('weight', 8, pad(title)),
         ('weight', 3, pad(artist)),
         ('weight', 5, pad(album)),
         ('weight', 3, pad(duration))
     ], min_width=0)
+
+    widget = urwid.Pile([header, urwid.Divider(u"-")])
     return widget
 
 

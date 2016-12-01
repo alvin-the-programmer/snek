@@ -17,20 +17,8 @@ def set_body(widget):
 def set_tracks(w, path_widget):
     path = path_widget.edit_text
     sound_names = resource.load_sounds(path)
-    track_window = get_track_window(sound_names)
+    track_window = tracklist.get_track_window(sound_names)
     body_widget.contents[0] = (track_window, ('weight', 1))
-
-
-def get_track_window(sound_names):
-    column_labels = tracklist.get_column_header()
-
-    header = urwid.Pile([column_labels, urwid.Divider(u"-")])
-    tracklist.set_track_data(sound_names)
-    frame = urwid.Frame(None, header=header)
-    tracklist.set_frame(frame)
-    tracklist.update(None, 'album')
-    widget = urwid.LineBox(frame)
-    return widget
 
 
 def pad(widget):

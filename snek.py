@@ -7,6 +7,7 @@ import resource
 import player
 import header
 import body
+import tracklist
 
 
 palette = [
@@ -20,7 +21,7 @@ top = urwid.Frame(pile, header=header.get_path_header())
 
 loop.set(urwid.MainLoop(top, palette))
 
-pile.contents.append((body.get_track_window([]), ('weight', 1)))
+pile.contents.append((tracklist.get_track_window([]), ('weight', 1)))
 pile.contents.append((body.get_player_controls(), ('given', 8)))
 
 if len(sys.argv) == 2:
