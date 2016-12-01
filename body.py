@@ -1,13 +1,13 @@
 import urwid
 
 import loop
+import tracklist
 import player
 import resource
 import misc
 
 
 body_widget = None
-
 
 def set_body(widget):
     global body_widget
@@ -22,43 +22,14 @@ def set_tracks(w, path_widget):
 
 
 def get_track_window(sound_names):
-    column_labels = urwid.Columns([
-        ('weight', 8, pad(urwid.Text(('b', u"Title"), wrap='clip'))),
-        ('weight', 3, pad(urwid.Text(('b', u"Artist"), wrap='clip'))),
-        ('weight', 5, pad(urwid.Text(('b', u"Album"), wrap='clip'))),
-        ('weight', 3, pad(urwid.Text(('b', u"Duration"), wrap='clip'))),
-    ], min_width=0)
+    column_labels = tracklist.get_column_header()
 
     header = urwid.Pile([column_labels, urwid.Divider(u"-")])
-    body_widget = get_track_list(sound_names)
-    frame = urwid.Frame(body_widget, header=header)
+    tracklist.set_track_data(sound_names)
+    frame = urwid.Frame(None, header=header)
+    tracklist.set_frame(frame)
+    tracklist.update(None, 'album')
     widget = urwid.LineBox(frame)
-    return widget
-
-
-def get_track_list(sound_names):
-    player.set_queue(sound_names)   #
-    track_data = resource.get_tracks_info(sound_names)
-
-    tracks = []
-
-    for num, t in enumerate(track_data):
-        play_button = urwid.Button(u"\u25B6", on_press=player.play, user_data=num)
-
-        title = urwid.Button(t['title'] or t['source_name'], on_press=player.play, user_data=num)
-        title._label.wrap = 'clip'
-
-        track = urwid.Columns([
-            ('weight', 8, pad(title)),
-            ('weight', 3, pad(urwid.Text(t['author'] or 'unknown', wrap='clip'))),
-            ('weight', 5, pad(urwid.Text(t['album'] or 'unknown', wrap='clip'))),
-            ('weight', 3, pad(urwid.Text(t['duration'], wrap='clip'))),
-        ], min_width=0)
-
-        attr_track = urwid.AttrMap(track, None, focus_map='reversed')
-        tracks.append(attr_track)
-
-    widget = urwid.ListBox(urwid.SimpleFocusListWalker(tracks))
     return widget
 
 
