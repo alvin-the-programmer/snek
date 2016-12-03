@@ -39,16 +39,33 @@ def get_track_list(sort_key):
     tracks = []
 
     for num, t in enumerate(track_d):
-        play_button = urwid.Button(u"\u25B6", on_press=player.play, user_data=num)
+        title = urwid.Button(
+            t['title'] or t['source_name'],
+            on_press=player.play, user_data=num
+        )
+        author = urwid.Button(
+            t['author'] or 'unknown',
+            on_press=player.play, user_data=num
+        )
+        album = urwid.Button(
+            t['album'] or 'unknown',
+            on_press=player.play, user_data=num
+        )
+        duration = urwid.Button(
+            t['duration'],
+            on_press=player.play, user_data=num
+        )
 
-        title = urwid.Button(t['title'] or t['source_name'], on_press=player.play, user_data=num)
         title._label.wrap = 'clip'
+        author._label.wrap = 'clip'
+        album._label.wrap = 'clip'
+        duration._label.wrap = 'clip'
 
         track = urwid.Columns([
             ('weight', 8, pad(title)),
-            ('weight', 3, pad(urwid.Text(t['author'] or 'unknown', wrap='clip'))),
-            ('weight', 5, pad(urwid.Text(t['album'] or 'unknown', wrap='clip'))),
-            ('weight', 3, pad(urwid.Text(t['duration'], wrap='clip'))),
+            ('weight', 3, pad(author)),
+            ('weight', 5, pad(album)),
+            ('weight', 3, pad(duration))
         ], min_width=0)
 
         attr_track = urwid.AttrMap(track, None, focus_map='reversed')
