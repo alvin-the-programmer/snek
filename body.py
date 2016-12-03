@@ -9,6 +9,7 @@ import misc
 
 body_widget = None
 
+
 def set_body(widget):
     global body_widget
     body_widget = widget
