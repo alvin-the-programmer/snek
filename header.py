@@ -1,15 +1,14 @@
 import urwid
 
 import body
-
+import misc
 
 header_widget = None
 
 
 def get_path_header():
-    edit = urwid.Edit(caption=u"Path: ")
-    enter = urwid.Button(u"enter", on_press=body.set_tracks, user_data=edit)
-    widget = urwid.Columns([edit, enter])
+    edit = misc.CustomEdit(u"Path: ", body.set_tracks)
+    widget = urwid.Columns([edit])
     global header_widget
     header_widget = widget
     return widget
