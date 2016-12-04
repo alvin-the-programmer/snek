@@ -17,7 +17,7 @@ palette = [
 
 pile = urwid.Pile([])
 body.set_body(pile)
-top = urwid.Frame(pile, header=header.get_path_header())
+top = urwid.Frame(pile, header=header.get_header())
 
 loop.set(urwid.MainLoop(top, palette))
 
