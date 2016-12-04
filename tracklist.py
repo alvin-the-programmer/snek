@@ -98,6 +98,11 @@ def get_column_header():
         on_press=update, user_data='duration'
     )
 
+    title._label.wrap = 'clip'
+    artist._label.wrap = 'clip'
+    album._label.wrap = 'clip'
+    duration._label.wrap = 'clip'
+
     header = urwid.Columns([
         ('weight', 8, pad(title)),
         ('weight', 3, pad(artist)),
