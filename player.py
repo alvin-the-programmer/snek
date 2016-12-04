@@ -1,4 +1,5 @@
 import math
+import random
 
 import pyglet
 
@@ -8,6 +9,8 @@ import resource
 now_playing = pyglet.media.Player()
 track_queue = None
 track_num = None
+shuffle = False
+shuffle_order = None
 
 
 def set_queue(source_names):
@@ -19,7 +22,7 @@ def set_queue(source_names):
     track_queue = [resource.source_info(s) for s in source_names]
 
 
-def play(widget, number):
+def play(w, number):
     global track_num
     track_num = number
 
@@ -33,19 +36,54 @@ def play(widget, number):
     now_playing.play()
 
 
-def next(widget):
+def next(w):
     if now_playing.source is None:
         return
 
+    if shuffle:
+        num = next_shuffle_num()
+    else:
+        num = next_inorder_num()
+
+    play(None, num)
+
+
+def toggle_shuffle(w):
+    global shuffle
+
+    if shuffle:
+        shuffle = False
+        w.set_label(u"Shuffle: Off")
+    else:
+        shuffle = True
+        shuffle_tracks()
+        w.set_label(u"Shuffle: On")
+
+
+
+
+
+def next_inorder_num():
     num = track_num + 1
 
     if num == len(track_queue):
         num = 0
 
-    play(None, num)
+    return num
 
 
-def previous(widget):
+def next_shuffle_num():
+    current = shuffle_order.index(track_num)
+    shuffle_num = current + 1
+
+    if shuffle_num == len(shuffle_order):
+        shuffle_num = 0
+
+    num = shuffle_order[shuffle_num]
+    return num
+
+
+def previous(w):
     if now_playing.source is None:
         return
 
@@ -57,7 +95,7 @@ def previous(widget):
     play(None, num)
 
 
-def toggle(widget):
+def toggle(w):
     if now_playing.playing:
         now_playing.pause()
     else:
@@ -72,6 +110,12 @@ def volume(increase):
 
     now_playing.volume = new_volume
     return now_playing.volume
+
+
+def shuffle_tracks():
+    global shuffle_order
+    shuffle_order = [i for i in range(0, len(track_queue))]
+    random.shuffle(shuffle_order)
 
 
 def autoplay():

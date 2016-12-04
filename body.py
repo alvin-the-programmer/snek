@@ -57,14 +57,23 @@ def get_volume_buttons():
 
     volUp = urwid.Button(u"Vol \u25B2", on_press=wrapper, user_data=True)
     volDown = urwid.Button(u"Vol \u25BC", on_press=wrapper, user_data=False)
+    shuffleb = urwid.Button(u"Shuffle: Off", on_press=player.toggle_shuffle)
 
     volUp._label.align = 'center'
     volDown._label.align = 'center'
+    shuffleb._label.align = 'center'
+
 
     volUp = misc.reverse_focus_color(volUp)
     volDown = misc.reverse_focus_color(volDown)
+    shuffleb = misc.reverse_focus_color(shuffleb)
 
-    widget = urwid.Columns([volTxt, volDown,volUp])
+    widget = urwid.Columns([
+        ('weight', 2, volTxt),
+        ('weight', 2, volDown),
+        ('weight', 2, volUp),
+        ('weight', 12, shuffleb),
+    ])
     return widget
 
 
@@ -81,7 +90,11 @@ def get_media_buttons():
     prevb = misc.reverse_focus_color(prevb)
     nextb = misc.reverse_focus_color(nextb)
 
-    widget = urwid.Columns([prevb, toggleb, nextb])
+    widget = urwid.Columns([
+        ('weight', 6, prevb),
+        ('weight', 6, toggleb),
+        ('weight', 6, nextb)
+    ])
     return widget
 
 
