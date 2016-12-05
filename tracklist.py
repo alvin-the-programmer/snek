@@ -1,11 +1,12 @@
 import urwid
-import player
-import resource
 
+import resource
+import playerinstance
 
 track_data = None
 track_window = None
 
+player = playerinstance.player_obj
 
 def get_track_window(sound_names):
     frame = urwid.Frame(None, header=get_column_header())

@@ -1,12 +1,13 @@
 import urwid
 
+import playerinstance
 import loop
 import tracklist
-import player
 import resource
 import misc
 
 
+player = playerinstance.player_obj
 body_widget = None
 
 

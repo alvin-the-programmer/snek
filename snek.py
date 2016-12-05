@@ -8,6 +8,7 @@ import player
 import header
 import body
 import tracklist
+import playerinstance
 
 
 palette = [
@@ -28,6 +29,6 @@ if len(sys.argv) == 2:
     path = sys.argv[1]
     header.set_path(path)
 
-loop.add_task(player.autoplay)
+loop.add_task(playerinstance.player_obj.autoplay)
 
 loop.run()
