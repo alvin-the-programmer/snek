@@ -9,7 +9,7 @@ The easiest way to install snek's dependencies is through [pip](https://pypi.pyt
 pip install urwid
 ```
 
-* Install [pyglet](www.pyglet.org/) multimedia library
+* Install [pyglet](https://bitbucket.org/pyglet/pyglet/wiki/Home) multimedia library
 ```
 pip install pyglet
 ```
