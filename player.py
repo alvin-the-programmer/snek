@@ -60,9 +60,6 @@ def toggle_shuffle(w):
         w.set_label(u"Shuffle: On")
 
 
-
-
-
 def next_inorder_num():
     num = track_num + 1
 
@@ -95,7 +92,7 @@ def previous(w):
     play(None, num)
 
 
-def toggle(w):
+def toggle_play(w):
     if now_playing.playing:
         now_playing.pause()
     else:

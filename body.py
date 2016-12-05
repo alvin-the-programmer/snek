@@ -78,7 +78,7 @@ def get_volume_buttons():
 
 
 def get_media_buttons():
-    toggleb = urwid.Button(u"\u25B6 / \u275A\u275A", on_press=player.toggle)
+    toggleb = urwid.Button(u"\u25B6 / \u275A\u275A", on_press=player.toggle_play)
     prevb = urwid.Button(u"\u25C0\u25C0", on_press=player.previous)
     nextb = urwid.Button(u"\u25B6\u25B6", on_press=player.next)
 
