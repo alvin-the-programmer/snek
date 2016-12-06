@@ -6,6 +6,7 @@ import misc
 
 header_widget = None
 
+
 def get_header():
     def wrapper(w):
         raise urwid.ExitMainLoop()
@@ -19,6 +20,7 @@ def get_header():
     ])
     widget = urwid.LineBox(columns)
     return widget
+
 
 def get_path_header():
     global header_widget
