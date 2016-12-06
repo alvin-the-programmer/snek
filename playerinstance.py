@@ -1,4 +1,4 @@
-from player import Player
+from soundplayer.player import Player
 
 
 class CustomPlayer(Player):
