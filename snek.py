@@ -4,11 +4,10 @@ import urwid
 
 import loop
 import resource
-import player
 import header
 import body
 import tracklist
-import playerinstance
+from playerinstance import player_instance as player
 
 
 palette = [
@@ -29,6 +28,6 @@ if len(sys.argv) == 2:
     path = sys.argv[1]
     header.set_path(path)
 
-loop.add_task(playerinstance.player_obj.autoplay)
+loop.add_task(player.autoplay)
 
 loop.run()

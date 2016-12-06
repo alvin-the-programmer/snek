@@ -1,3 +1,3 @@
-import player
+from player import Player
 
-player_obj = player.Player()
+player_instance = Player()
