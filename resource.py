@@ -2,7 +2,6 @@ import os
 
 import pyglet
 
-import body
 import misc
 
 
