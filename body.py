@@ -57,7 +57,7 @@ def get_volume_buttons():
 
     volUp = urwid.Button(u"Vol \u25B2", on_press=wrapper, user_data=True)
     volDown = urwid.Button(u"Vol \u25BC", on_press=wrapper, user_data=False)
-    shuffleb = urwid.Button(u"Shuffle: Off", on_press=player.toggle_shuffle)
+    shuffleb = urwid.CheckBox(u"Shuffle", state=False, on_state_change=player.toggle_shuffle)
 
     volUp._label.align = 'center'
     volDown._label.align = 'center'

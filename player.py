@@ -48,14 +48,12 @@ class Player:
         self.play(None, num)
 
 
-    def toggle_shuffle(self, w):
+    def toggle_shuffle(self, widget, state):
         if self.shuffle:
             self.shuffle = False
-            w.set_label(u"shuffle: Off")
         else:
             self.shuffle = True
             self.shuffle_tracks()
-            w.set_label(u"shuffle: On")
 
 
     def next_inorder_num(self):
