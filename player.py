@@ -23,7 +23,7 @@ class Player:
         self.track_queue = [resource.source_info(s) for s in source_names]
 
 
-    def play(self, w, number):
+    def play(self, number):
         self.track_num = number
 
         if self.now_playing.source:
@@ -36,7 +36,7 @@ class Player:
         self.now_playing.play()
 
 
-    def next(self, w):
+    def next(self):
         if self.now_playing.source is None:
             return
 
@@ -48,7 +48,7 @@ class Player:
         self.play(None, num)
 
 
-    def toggle_shuffle(self, widget, state):
+    def toggle_shuffle(self):
         if self.shuffle:
             self.shuffle = False
         else:
@@ -76,7 +76,7 @@ class Player:
         return num
 
 
-    def previous(self, w):
+    def previous(self):
         if self.now_playing.source is None:
             return
 
@@ -88,7 +88,7 @@ class Player:
         self.play(None, num)
 
 
-    def toggle_play(self, w):
+    def toggle_play(self):
         if self.now_playing.playing:
             self.now_playing.pause()
         else:
