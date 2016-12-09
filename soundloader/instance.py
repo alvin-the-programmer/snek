@@ -1,7 +1,9 @@
-from soundloader import SoundLoader
+from soundloader import Loader
 
-loader = SoundLoader('.')
 
-def set(path):
+loader = Loader('.')
+
+
+def set_path(path):
     global loader
-    loader = SoundLoader(path)
+    loader = Loader(path)

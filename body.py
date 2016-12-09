@@ -1,10 +1,11 @@
+import sys
 import urwid
 
 import loop
 import tracklist
 import misc
-import soundloader.instance as sounds
-import soundplayer.instance as player
+import soundloader.instance as loader
+from soundplayer.instance import player
 
 
 body_widget = None
@@ -17,8 +18,8 @@ def set_body(widget):
 
 def set_tracks(w, path_widget):
     path = path_widget.edit_text
-    sounds.set(path)
-    sound_names = sounds.loader.sound_names
+    loader.set_path(path)
+    sound_names = loader.loader.sound_names
     track_window = tracklist.get_track_window(sound_names)
     body_widget.contents[0] = (track_window, ('weight', 1))
 
@@ -53,12 +54,12 @@ def get_volume_buttons():
     volTxt = urwid.Text(u"Volume: 10", align='center')
 
     def wrapper(widget, value):
-        vol = player.player.volume(value)
+        vol = player.volume(value)
         volTxt.set_text('Volume: ' + str(int(vol * 10)))
 
     volUp = urwid.Button(u"Vol \u25B2", on_press=wrapper, user_data=True)
     volDown = urwid.Button(u"Vol \u25BC", on_press=wrapper, user_data=False)
-    shuffleb = urwid.CheckBox(u"Shuffle", state=False, on_state_change=player.player.toggle_shuffle)
+    shuffleb = urwid.CheckBox(u"Shuffle", state=False, on_state_change=player.toggle_shuffle)
 
     volUp._label.align = 'center'
     volDown._label.align = 'center'
@@ -79,9 +80,9 @@ def get_volume_buttons():
 
 
 def get_media_buttons():
-    toggleb = urwid.Button(u"\u25B6 / \u275A\u275A", on_press=player.player.toggle_play)
-    prevb = urwid.Button(u"\u25C0\u25C0", on_press=player.player.previous)
-    nextb = urwid.Button(u"\u25B6\u25B6", on_press=player.player.next)
+    toggleb = urwid.Button(u"\u25B6 / \u275A\u275A", on_press=player.toggle_play)
+    prevb = urwid.Button(u"\u25C0\u25C0", on_press=player.previous)
+    nextb = urwid.Button(u"\u25B6\u25B6", on_press=player.next)
 
     toggleb._label.align = 'center'
     prevb._label.align = 'center'
@@ -103,7 +104,7 @@ def current_track_name():
     widget = urwid.Text(u"", wrap='clip')
 
     def wrapper():
-        name = player.player.current_track_name()
+        name = player.current_track_name()
         widget.set_text(name)
 
     loop.add_task(wrapper)
@@ -114,7 +115,7 @@ def current_track_progress():
     widget = urwid.ProgressBar(None, 'reversed')
 
     def wrapper():
-        t = player.player.track_progress()
+        t = player.track_progress()
         widget.set_completion(t)
 
     loop.add_task(wrapper)
@@ -125,7 +126,7 @@ def current_track_time():
     widget = urwid.Text(u"", align='right', wrap='clip')
 
     def wrapper():
-        current, duration = player.player.track_time()
+        current, duration = player.track_time()
         current, duration = misc.format_time(current), misc.format_time(duration)
         formatted = u"{0} / {1}".format(current, duration)
         widget.set_text(formatted)

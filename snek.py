@@ -6,7 +6,7 @@ import loop
 import header
 import body
 import tracklist
-import soundplayer.instance as player
+from soundplayer.instance import player
 
 
 palette = [
@@ -27,6 +27,6 @@ if len(sys.argv) == 2:
     path = sys.argv[1]
     header.set_path(path)
 
-loop.add_task(player.player.autoplay)
+loop.add_task(player.autoplay)
 
 loop.run()

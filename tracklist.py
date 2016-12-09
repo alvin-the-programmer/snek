@@ -1,8 +1,7 @@
 import urwid
 
-import soundloader.instance as sounds
-import soundplayer.instance as player
-
+import soundloader.instance as loader
+from soundplayer.instance import player
 
 
 track_data = None
@@ -12,7 +11,6 @@ track_window = None
 def get_track_window(sound_names):
     frame = urwid.Frame(None, header=get_column_header())
     set_track_window(frame)
-
     set_track_data(sound_names)
     update(None, 'album')
 
@@ -22,7 +20,7 @@ def get_track_window(sound_names):
 
 def set_track_data(sound_names):
     global track_data
-    track_data = sounds.loader.get_tracks_info(sound_names)
+    track_data = loader.loader.get_tracks_info(sound_names)
 
 
 def set_track_window(widget):
@@ -37,25 +35,25 @@ def update(w, sort_key):
 
 def get_track_list(sort_key):
     track_d = sort_tracks(track_data, sort_key)
-    player.player.set_queue([t['source_name']for t in track_d])
+    player.set_queue([t['source_name']for t in track_d])
     tracks = []
 
     for num, t in enumerate(track_d):
         title = urwid.Button(
             t['title'] or t['source_name'],
-            on_press=player.player.play, user_data=num
+            on_press=player.play, user_data=num
         )
         author = urwid.Button(
             t['author'] or 'unknown',
-            on_press=player.player.play, user_data=num
+            on_press=player.play, user_data=num
         )
         album = urwid.Button(
             t['album'] or 'unknown',
-            on_press=player.player.play, user_data=num
+            on_press=player.play, user_data=num
         )
         duration = urwid.Button(
             t['duration'],
-            on_press=player.player.play, user_data=num
+            on_press=player.play, user_data=num
         )
 
         title._label.wrap = 'clip'

@@ -4,7 +4,7 @@ import math
 import pyglet
 
 
-class SoundLoader:
+class Loader:
     SOUND_EXTS = ('.mp3', '.wav')
 
 
