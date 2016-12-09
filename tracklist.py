@@ -1,7 +1,8 @@
 import urwid
 
 import soundloader.instance as sounds
-from playerinstance import player_instance as player
+import soundplayer.instance as player
+
 
 
 track_data = None
@@ -36,25 +37,25 @@ def update(w, sort_key):
 
 def get_track_list(sort_key):
     track_d = sort_tracks(track_data, sort_key)
-    player.set_queue([t['source_name']for t in track_d])
+    player.player.set_queue([t['source_name']for t in track_d])
     tracks = []
 
     for num, t in enumerate(track_d):
         title = urwid.Button(
             t['title'] or t['source_name'],
-            on_press=player.play, user_data=num
+            on_press=player.player.play, user_data=num
         )
         author = urwid.Button(
             t['author'] or 'unknown',
-            on_press=player.play, user_data=num
+            on_press=player.player.play, user_data=num
         )
         album = urwid.Button(
             t['album'] or 'unknown',
-            on_press=player.play, user_data=num
+            on_press=player.player.play, user_data=num
         )
         duration = urwid.Button(
             t['duration'],
-            on_press=player.play, user_data=num
+            on_press=player.player.play, user_data=num
         )
 
         title._label.wrap = 'clip'

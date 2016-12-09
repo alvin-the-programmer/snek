@@ -1,4 +1,4 @@
-from soundplayer.player import Player
+from player import Player
 
 
 class CustomPlayer(Player):
@@ -20,6 +20,3 @@ class CustomPlayer(Player):
 
     def toggle_play(self, widget):
         Player.toggle_play(self)
-
-
-player_instance = CustomPlayer()
