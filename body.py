@@ -2,8 +2,8 @@ import urwid
 
 import loop
 import tracklist
-import resource
 import misc
+import soundloader.instance as sounds
 from playerinstance import player_instance as player
 
 
@@ -17,7 +17,8 @@ def set_body(widget):
 
 def set_tracks(w, path_widget):
     path = path_widget.edit_text
-    sound_names = resource.load_sounds(path)
+    sounds.set(path)
+    sound_names = sounds.loader.sound_names
     track_window = tracklist.get_track_window(sound_names)
     body_widget.contents[0] = (track_window, ('weight', 1))
 

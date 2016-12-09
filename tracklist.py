@@ -1,6 +1,6 @@
 import urwid
 
-import resource
+import soundloader.instance as sounds
 from playerinstance import player_instance as player
 
 
@@ -21,7 +21,7 @@ def get_track_window(sound_names):
 
 def set_track_data(sound_names):
     global track_data
-    track_data = resource.get_tracks_info(sound_names)
+    track_data = sounds.loader.get_tracks_info(sound_names)
 
 
 def set_track_window(widget):

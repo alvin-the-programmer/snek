@@ -3,7 +3,6 @@ import sys
 import urwid
 
 import loop
-import resource
 import header
 import body
 import tracklist

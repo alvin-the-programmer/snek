@@ -31,6 +31,6 @@ def get_path_header():
 
 
 def set_path(path):
-    edit= header_widget
+    edit = header_widget
     edit.set_edit_text(path)
     body.set_tracks(None, edit)
