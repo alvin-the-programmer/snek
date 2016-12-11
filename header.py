@@ -8,16 +8,18 @@ header_widget = None
 
 
 def get_header():
-    def wrapper(w):
+    def quit(w):
         raise urwid.ExitMainLoop()
-    quit = urwid.Button(u"Quit", on_press=wrapper)
-    quit._label.wrap = 'clip'
-    quit._label.align = 'center'
+
+    quitb = urwid.Button(u"Quit", on_press=quit)
+    quitb._label.wrap = 'clip'
+    quitb._label.align = 'center'
 
     columns = urwid.Columns([
         ('weight', 8, get_path_header()),
-        ('weight', 1, quit)
+        ('weight', 1, quitb)
     ])
+
     widget = urwid.LineBox(columns)
     return widget
 
