@@ -1,38 +1,34 @@
 import urwid
 
-import body
 import misc
 
 
-header_widget = None
+class Header(urwid.Columns):
+
+    def __init__(self, on_path_change):
+        quit = self.quit_button()
+        edit = self.path_edit(on_path_change)
+
+        widgets = [
+            edit,
+            quit
+        ]
+
+        urwid.Columns.__init__(self, widgets)
 
 
-def get_header():
-    def quit(w):
-        raise urwid.ExitMainLoop()
+    def quit_button(self):
+        def quit(w):
+            raise urwid.ExitMainLoop()
 
-    quitb = urwid.Button(u"Quit", on_press=quit)
-    quitb._label.wrap = 'clip'
-    quitb._label.align = 'center'
+        widget = urwid.Button(u"Quit", on_press=quit)
+        widget._label.wrap = 'clip'
+        widget._label.align = 'center'
 
-    columns = urwid.Columns([
-        ('weight', 8, get_path_header()),
-        ('weight', 1, quitb)
-    ])
-
-    widget = urwid.LineBox(columns)
-    return widget
+        return widget
 
 
-def get_path_header():
-    global header_widget
-    edit = misc.CustomEdit(u"Path: ", body.set_tracks)
-    widget = urwid.AttrMap(edit, None, focus_map='reversed')
-    header_widget = edit
-    return widget
-
-
-def set_path(path):
-    edit = header_widget
-    edit.set_edit_text(path)
-    body.set_tracks(None, edit)
+    def path_edit(self, enter_cb):
+        edit = misc.CustomEdit(u"Path: ", enter_cb)
+        widget = urwid.AttrMap(edit, None, focus_map='reversed')
+        return widget

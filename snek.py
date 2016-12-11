@@ -3,9 +3,8 @@ import sys
 import urwid
 
 import loop
-import header
-import body
-import tracklist
+from mainwidget import MainWidget
+from header import Header
 from soundplayer.instance import player
 
 
@@ -14,19 +13,18 @@ palette = [
     ('b', 'bold', 'default')
 ]
 
-pile = urwid.Pile([])
-body.set_body(pile)
-top = urwid.Frame(pile, header=header.get_header())
-
-loop.set(urwid.MainLoop(top, palette))
-
-pile.contents.append((tracklist.get_track_window([]), ('weight', 1)))
-pile.contents.append((body.get_player_controls(), ('given', 8)))
+main = MainWidget()
 
 if len(sys.argv) == 2:
     path = sys.argv[1]
-    header.set_path(path)
+    main.set_tracks(path)
+else:
+    main.set_tracks('.')
 
+
+
+top = urwid.Frame(main, header=urwid.LineBox(Header(main.set_tracks)))
+
+loop.set(urwid.MainLoop(top, palette))
 loop.add_task(player.autoplay)
-
 loop.run()

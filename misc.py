@@ -10,7 +10,7 @@ class CustomEdit(urwid.Edit):
 
     def keypress(self, size, key):
         if key == 'enter':
-            self.on_enter(self, self)
+            self.on_enter(self.edit_text)
         urwid.Edit.keypress(self, size, key)
 
 
