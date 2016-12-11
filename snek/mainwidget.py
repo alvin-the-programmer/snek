@@ -1,13 +1,13 @@
 import urwid
 
 import soundloader.instance as loader
-import tracklist
+from tracklist import TrackList
 import body
 
 
 class MainWidget(urwid.Pile):
     def __init__(self):
-        track_window = tracklist.get_track_window([])
+        track_window = urwid.LineBox(TrackList([]))
         player_controls = body.get_player_controls()
 
         widgets = [
@@ -21,5 +21,5 @@ class MainWidget(urwid.Pile):
     def set_tracks(self, path):
         loader.set_path(path)
         sound_names = loader.loader.sound_names
-        track_window = tracklist.get_track_window(sound_names)
+        track_window = urwid.LineBox(TrackList(sound_names))
         self.contents[0] = (track_window, ('weight', 1))
