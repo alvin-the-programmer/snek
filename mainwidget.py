@@ -23,13 +23,3 @@ class MainWidget(urwid.Pile):
         sound_names = loader.loader.sound_names
         track_window = tracklist.get_track_window(sound_names)
         self.contents[0] = (track_window, ('weight', 1))
-
-
-
-# main = MainWidget()
-# main.set_tracks('/Users/Alvin/Desktop/a')
-# main.set_tracks('/Users/Alvin/Desktop/b')
-#
-# top = urwid.Frame(main)
-# loop = urwid.MainLoop(top)
-# loop.run()

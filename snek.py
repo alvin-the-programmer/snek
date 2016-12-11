@@ -17,13 +17,12 @@ main = MainWidget()
 
 if len(sys.argv) == 2:
     path = sys.argv[1]
-    main.set_tracks(path)
 else:
-    main.set_tracks('.')
+    path = '.'
 
+main.set_tracks(path)
 
-
-top = urwid.Frame(main, header=urwid.LineBox(Header(main.set_tracks)))
+top = urwid.Frame(main, header=urwid.LineBox(Header(path, main.set_tracks)))
 
 loop.set(urwid.MainLoop(top, palette))
 loop.add_task(player.autoplay)

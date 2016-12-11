@@ -5,9 +5,9 @@ import misc
 
 class Header(urwid.Columns):
 
-    def __init__(self, on_path_change):
+    def __init__(self, path, on_path_change):
         quit = self.quit_button()
-        edit = self.path_edit(on_path_change)
+        edit = self.path_edit(path, on_path_change)
 
         widgets = [
             edit,
@@ -28,7 +28,8 @@ class Header(urwid.Columns):
         return widget
 
 
-    def path_edit(self, enter_cb):
+    def path_edit(self, path, enter_cb):
         edit = misc.CustomEdit(u"Path: ", enter_cb)
+        edit.set_edit_text(path)
         widget = urwid.AttrMap(edit, None, focus_map='reversed')
         return widget
