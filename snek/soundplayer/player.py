@@ -3,11 +3,12 @@ import random
 
 import pyglet
 
-import soundloader.instance as sounds
+# import soundloader.instance as sounds
 
 
 class Player:
-    def __init__(self):
+    def __init__(self, loader):
+        self.loader = loader
         self.now_playing = pyglet.media.Player()
         self.track_queue = None
         self.track_num = None
@@ -20,7 +21,7 @@ class Player:
             self.now_playing.pause()
             self.now_playing.next_source()
 
-        self.track_queue = [sounds.loader.source_info(s) for s in source_names]
+        self.track_queue = [self.loader.source_info(s) for s in source_names]
 
 
     def play(self, number):
@@ -31,7 +32,7 @@ class Player:
             self.now_playing.next_source()
 
         track = self.track_queue[number]
-        source = sounds.loader.get_source(track['source_name'])
+        source = self.loader.get_source(track['source_name'])
         self.now_playing.queue(source)
         self.now_playing.play()
 

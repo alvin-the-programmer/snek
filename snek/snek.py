@@ -5,7 +5,7 @@ import urwid
 import loop
 from mainwidget import MainWidget
 from header import Header
-from soundplayer.instance import player
+# from soundplayer.instance import player
 
 
 palette = [
@@ -25,5 +25,5 @@ main.set_tracks(path)
 top = urwid.Frame(main, header=urwid.LineBox(Header(path, main.set_tracks)))
 
 loop.set(urwid.MainLoop(top, palette))
-loop.add_task(player.autoplay)
+# loop.add_task(player.autoplay)
 loop.run()

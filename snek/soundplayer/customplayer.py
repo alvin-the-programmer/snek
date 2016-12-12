@@ -2,6 +2,9 @@ from player import Player
 
 
 class CustomPlayer(Player):
+    def __init__(self, loader):
+        Player.__init__(self, loader)
+
     def play(self, widget, number):
         Player.play(self, number)
 

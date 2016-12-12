@@ -1,12 +1,14 @@
 import urwid
 
-import soundloader.instance as loader
-from soundplayer.instance import player
+# import soundloader.instance as loader
+# from soundplayer.instance import player
 
 
 class TrackList(urwid.Frame):
-    def __init__(self, sound_names):
-        self.track_data = loader.loader.get_tracks_info(sound_names)
+    def __init__(self, player, track_data):
+        # self.track_data = loader.loader.get_tracks_info(sound_names)
+        self.track_data = track_data
+        self.player = player
 
         header = self.get_column_header()
         body = self.get_track_list('album')
@@ -15,25 +17,25 @@ class TrackList(urwid.Frame):
 
     def get_track_list(self, sort_key):
         track_data = self.sort_tracks(sort_key)
-        player.set_queue([t['source_name']for t in track_data])
+        self.player.set_queue([t['source_name']for t in track_data])
         tracks = []
 
         for num, t in enumerate(track_data):
             title = urwid.Button(
                 t['title'] or t['source_name'],
-                on_press=player.play, user_data=num
+                on_press=self.player.play, user_data=num
             )
             author = urwid.Button(
                 t['author'] or 'unknown',
-                on_press=player.play, user_data=num
+                on_press=self.player.play, user_data=num
             )
             album = urwid.Button(
                 t['album'] or 'unknown',
-                on_press=player.play, user_data=num
+                on_press=self.player.play, user_data=num
             )
             duration = urwid.Button(
                 t['duration'],
-                on_press=player.play, user_data=num
+                on_press=self.player.play, user_data=num
             )
 
             title._label.wrap = 'clip'
