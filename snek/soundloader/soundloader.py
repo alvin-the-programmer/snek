@@ -46,6 +46,11 @@ class Loader:
         return tracks_info
 
 
+    def get_all_source_info(self):
+        tracks_info = [self.source_info(s) for s in self.sound_names]
+        return tracks_info
+
+
     def source_info(self, source_name):
         source = self.get_source(source_name)
 
@@ -63,6 +68,7 @@ class Loader:
     def source_title(self, source_name):
         source = self.get_source(source_name)
         return source.info.title or name
+
 
     def format_time(self, seconds):
         m, s = divmod(math.floor(seconds), 60)
