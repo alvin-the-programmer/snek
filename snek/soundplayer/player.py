@@ -3,8 +3,6 @@ import random
 
 import pyglet
 
-# import soundloader.instance as sounds
-
 
 class Player:
     def __init__(self, loader):

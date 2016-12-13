@@ -1,12 +1,8 @@
 import urwid
 
-# import soundloader.instance as loader
-# from soundplayer.instance import player
-
 
 class TrackList(urwid.Frame):
     def __init__(self, player, track_data):
-        # self.track_data = loader.loader.get_tracks_info(sound_names)
         self.track_data = track_data
         self.player = player
 

@@ -32,5 +32,12 @@ class MainWidget(urwid.Pile):
 
         controls_window = urwid.LineBox(PlayerControls(self.player))
 
-        self.contents[0] = (track_window, ('weight', 1))
-        self.contents[1] = (controls_window, ('given', 8))
+        # self.contents[0] = (track_window, ('weight', 1))
+        # self.contents[1] = (controls_window, ('given', 8))
+
+        widgets = [
+            ('weight', 1, track_window),
+            (8, controls_window)
+        ]
+
+        urwid.Pile.__init__(self, widgets)
