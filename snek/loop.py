@@ -1,23 +1,26 @@
-main_loop = None
-callbacks = []
+import urwid
 
 
-def set(loop):
-    global main_loop
-    main_loop = loop
+class TaskLoop:
+    def __init__(self, main_loop):
+        self.tasks = []
+        self.main_loop = main_loop
+        self.handle = None
+        self.run_tasks()
 
 
-def add_task(cb):
-    callbacks.append(cb)
+    def add_task(self, cb):
+        self.tasks.append(cb)
 
 
-def update(loop=None, user_data=None):
-    for cb in callbacks:
-        cb()
+    def run_tasks(self, loop=None, user_data=None):
+        for cb in self.tasks:
+            cb()
 
-    main_loop.set_alarm_in(1, update)
+        self.handle = self.main_loop.set_alarm_in(1, self.run_tasks)
 
 
-def run():
-    update()
-    main_loop.run()
+    def stop(self):
+        if self.handle is not None:
+            print 'stop'
+            self.main_loop.remove_alarm(self.handle)

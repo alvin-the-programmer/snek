@@ -1,12 +1,12 @@
 import urwid
 
-import loop
 import misc
 
 
 class PlayerControls(urwid.ListBox):
-    def __init__(self, player):
+    def __init__(self, player, task_loop):
         self.player = player
+        self.task_loop = task_loop
 
         info_widget = urwid.Columns([self.current_track_name(), self.current_track_time()])
         progress_widget = self.current_track_progress()
@@ -83,7 +83,7 @@ class PlayerControls(urwid.ListBox):
             name = self.player.current_track_name()
             widget.set_text(name)
 
-        loop.add_task(wrapper)
+        self.task_loop.add_task(wrapper)
         return widget
 
 
@@ -94,7 +94,7 @@ class PlayerControls(urwid.ListBox):
             t = self.player.track_progress()
             widget.set_completion(t)
 
-        loop.add_task(wrapper)
+        self.task_loop.add_task(wrapper)
         return widget
 
 
@@ -107,7 +107,7 @@ class PlayerControls(urwid.ListBox):
             formatted = u"{0} / {1}".format(current, duration)
             widget.set_text(formatted)
 
-        loop.add_task(wrapper)
+        self.task_loop.add_task(wrapper)
         return widget
 
 
