@@ -23,13 +23,14 @@ class MainWidget(urwid.Pile):
 
 
     def set_tracks(self, path):
+        self.player.pause()
         self.loader = Loader(path)
         self.player = CustomPlayer(self.loader)
 
-        sound_names = self.loader.sound_names
-        track_data = self.loader.get_tracks_info(sound_names)
+        track_data = self.loader.get_all_source_info()
         track_window = urwid.LineBox(TrackList(self.player, track_data))
+
         controls_window = urwid.LineBox(PlayerControls(self.player))
-        
+
         self.contents[0] = (track_window, ('weight', 1))
         self.contents[1] = (controls_window, ('given', 8))

@@ -9,6 +9,7 @@ import pyglet
 class Player:
     def __init__(self, loader):
         self.loader = loader
+        self.track_queue = loader.get_all_source_info()
         self.now_playing = pyglet.media.Player()
         self.track_queue = None
         self.track_num = None
@@ -94,6 +95,11 @@ class Player:
             self.now_playing.pause()
         else:
             self.now_playing.play()
+
+
+    def pause(self):
+        if self.now_playing.playing:
+            self.now_playing.pause()
 
 
     def volume(self, increase):
