@@ -27,3 +27,6 @@ git clone https://github.com/azablan/snek.git
 ```
 python snek.py <absolute-path-to-music-directory>
 ```
+## Screenshot
+
+![Screenshot](https://cloud.githubusercontent.com/assets/14065730/21290374/c45b35dc-c485-11e6-88d1-340387bf15fb.png)
